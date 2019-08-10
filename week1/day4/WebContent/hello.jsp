@@ -37,5 +37,26 @@ int j = 123;
 	</c:forEach>
 </ul>
 </section>
+
+
+<section>
+	<fieldset>
+		<legend>Names</legend>
+		
+		<form action="/Howdy/Hello" method="POST" autocomplete="off">
+		<div>
+			<label>Name</label>
+			<input type="text" name="name">
+		</div>
+		<button>Submit</button>
+	</form>
+	</fieldset>
+
+</section>
+
+
+
+
+
 </body>
 </html>

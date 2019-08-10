@@ -1,0 +1,23 @@
+h1 {
+	color: red;
+}
+
+.board {
+	margin: 10;
+}
+
+.square {
+	height: 60px;
+	width: 60px;
+	display:inline-block;
+	border: 1ch black solid;
+	margin: -1px;
+}
+
+.even {
+	background-color: blueviolet;
+}
+
+.odd {
+	background-color: cornflowerblue;
+}

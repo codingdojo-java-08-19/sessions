@@ -1,6 +1,7 @@
 package com.codingdojo.howdy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Hello
@@ -32,15 +34,30 @@ public class Hello extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		
-		String personName = request.getParameter("name");
-		String[] people = { "George", "Sally", "Holly" };
+//		String personName = request.getParameter("name");
+//		String[] people = { "George", "Sally", "Holly" };
 		
 		
-		System.out.println("Name is " + personName);
+		HttpSession session = request.getSession();
+		
+		String nameFromForm = (String) session.getAttribute("personFromForm");
+		
+		
+		if (session.getAttribute("people") == null) {
+			System.out.println("people is null");
+			session.setAttribute("people", new ArrayList<String>());
+		}
+		
+		ArrayList<String> people = (ArrayList<String>) session.getAttribute("people");
+		
+		
+		System.out.println("Name is " + nameFromForm);
+		
+		System.out.println("people ... " + people);
 		
 //		response.setContentType("text/html");
 		
-		request.setAttribute("name", personName);
+		request.setAttribute("name", nameFromForm);
 		request.setAttribute("people", people);
 		
 		
@@ -59,7 +76,20 @@ public class Hello extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		
+		String name = request.getParameter("name");
+		
+		ArrayList<String> people = (ArrayList<String>) session.getAttribute("people");
+		
+		
+		
+		people.add(name);
+		
+		session.setAttribute("personFromForm", name);
+		System.out.println("posting content " + name);
+//		doGet(request, response);
+		response.sendRedirect("/Howdy/Hello");
 	}
 
 }
